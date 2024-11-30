@@ -2,21 +2,39 @@
 
 Utils for react-native developer
 
+## Features
+- [x] : Show developer screen FAB by shake
+- [ ] : Value Viewer
+- [ ] : Network Logger
+
 ## Installation
 
 ```sh
-npm install react-native-developer-screen
+yarn add react-native-developer-screen # or your favorite package manager
 ```
 
 ## Usage
 
 
 ```js
-import { multiply } from 'react-native-developer-screen';
+import { DeveloperScreen } from 'react-native-developer-screen';
 
-// ...
+// App.tsx
+export default function App() {
+  return (
+    <View>
+      // Your navigation by react-navigation or react-native-navigation
+      // <YourNavigator />
 
-const result = await multiply(3, 7);
+      // your navigator in bottom
+      <DeveloperScreen />
+    </View>
+  );
+}
+
+
+
+
 ```
 
 

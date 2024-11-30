@@ -1,4 +1,10 @@
-import { NativeModules, Platform } from 'react-native';
+import {
+  NativeModules,
+  Platform,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { useEffect } from 'react';
 
 const LINKING_ERROR =
   `The package 'react-native-developer-screen' doesn't seem to be linked. Make sure: \n\n` +
@@ -9,11 +15,11 @@ const LINKING_ERROR =
 // @ts-expect-error
 const isTurboModuleEnabled = global.__turboModuleProxy != null;
 
-const DeveloperScreenModule = isTurboModuleEnabled
+let DeveloperScreenModule = isTurboModuleEnabled
   ? require('./NativeDeveloperScreen').default
   : NativeModules.DeveloperScreen;
 
-const DeveloperScreen = DeveloperScreenModule
+DeveloperScreenModule = DeveloperScreenModule
   ? DeveloperScreenModule
   : new Proxy(
       {},
@@ -25,5 +31,28 @@ const DeveloperScreen = DeveloperScreenModule
     );
 
 export function multiply(a: number, b: number): Promise<number> {
-  return DeveloperScreen.multiply(a, b);
+  return DeveloperScreenModule.multiply(a, b);
+}
+
+export function DeveloperScreen() {
+  const window = useWindowDimensions();
+
+  useEffect(() => {
+    if (__DEV__) {
+    }
+  }, []);
+
+  return (
+    <View
+      style={{
+        position: 'absolute',
+        width: window.width,
+        height: window.height,
+        backgroundColor: 'red',
+        left: window.width / 2,
+        // TODO: 쉐이킹 인식 네이티브 모듈 구현하여 애니메이션 처리 코드 추가 후에 이어서 작업
+        // left: window.width,
+      }}
+    />
+  );
 }
