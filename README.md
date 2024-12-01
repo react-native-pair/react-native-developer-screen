@@ -3,7 +3,7 @@
 Utils for react-native developer
 
 ## Features
-- [x] : Show developer screen FAB by shake
+- [ ] : Show developer screen FAB by shake
 - [ ] : Value Viewer
 - [ ] : Network Logger
 
